@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using TwinstickFNA.Input;
 
 namespace TwinstickFNA
 {
@@ -30,6 +32,9 @@ namespace TwinstickFNA
 
         protected override void Update(GameTime gameTime)
         {
+            InputManager.Update();
+            if (InputManager.GetButtonPress(Buttons.Start))
+                Exit();
             base.Update(gameTime);
         }
 
