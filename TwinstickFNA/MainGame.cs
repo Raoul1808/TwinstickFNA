@@ -10,6 +10,8 @@ namespace TwinstickFNA
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        private DevScene _scene;
+        
         public MainGame()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -29,6 +31,7 @@ namespace TwinstickFNA
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             GameContent.Initialize(GraphicsDevice);
+            _scene = new DevScene();
         }
 
         protected override void Update(GameTime gameTime)
@@ -36,6 +39,7 @@ namespace TwinstickFNA
             InputManager.Update();
             if (InputManager.GetButtonPress(Buttons.Start))
                 Exit();
+            _scene.Update();
             base.Update(gameTime);
         }
 
@@ -44,7 +48,7 @@ namespace TwinstickFNA
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
-            _spriteBatch.Draw(GameContent.Pixel, new Rectangle(100, 100, 100, 100), Color.Red);
+            _scene.Draw(_spriteBatch);
             _spriteBatch.End();
             
             base.Draw(gameTime);
