@@ -28,6 +28,7 @@ namespace TwinstickFNA
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            GameContent.Initialize(GraphicsDevice);
         }
 
         protected override void Update(GameTime gameTime)
@@ -43,7 +44,7 @@ namespace TwinstickFNA
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
-            // Draw code
+            _spriteBatch.Draw(GameContent.Pixel, new Rectangle(100, 100, 100, 100), Color.Red);
             _spriteBatch.End();
             
             base.Draw(gameTime);

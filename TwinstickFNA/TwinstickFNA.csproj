@@ -65,6 +65,7 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="GameContent.cs" />
         <Compile Include="Input\InputManager.cs" />
         <Compile Include="MainGame.cs" />
         <Compile Include="Program.cs" />
