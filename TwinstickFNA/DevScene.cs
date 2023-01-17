@@ -10,6 +10,7 @@ namespace TwinstickFNA
     {
         private Vector2 _position;
         private Vector2 _velocity;
+        private Vector2 _aim;
 
         private List<Rectangle> _platforms = new List<Rectangle>()
         {
@@ -18,6 +19,7 @@ namespace TwinstickFNA
         };
 
         private const int TileScale = 32;
+        private const int AimLineLength = 32;
 
         private const float MaxFallSpeed = 20f;
         private const float GravityConstant = 1.2f;
@@ -34,17 +36,25 @@ namespace TwinstickFNA
 
         public DevScene()
         {
-            _position = new Vector2(TileScale, TileScale);
+            _position = new Vector2(TileScale * 3, TileScale);
             _velocity = new Vector2(0);
+            _aim = new Vector2(1f, 0f);
         }
         
         public void Update()
         {
+            Vector2 aim = InputManager.GetRightStick();
+            if (aim.X != 0 && aim.Y != 0)
+            {
+                aim.Y *= -1f;
+                _aim = aim;
+                _aim.Normalize();
+            }
             _velocity.X = InputManager.GetLeftStick().X * HorizontalSpeed;
             _velocity.Y += GravityConstant;
             if (_velocity.Y >= MaxFallSpeed)
                 _velocity.Y = MaxFallSpeed;
-            if (InputManager.GetButtonPress(Buttons.A))
+            if (InputManager.GetButtonPress(Buttons.LeftTrigger))
                 _velocity.Y = JumpForce;
             HandleCollisions();
             _position += _velocity;
@@ -55,6 +65,7 @@ namespace TwinstickFNA
             spriteBatch.Draw(GameContent.Pixel, _bounds, Color.Blue);
             foreach (Rectangle rect in _platforms)
                 spriteBatch.Draw(GameContent.Pixel, rect, Color.Black);
+            spriteBatch.DrawLine(_position, _position + _aim * AimLineLength, Color.Red, 2);
         }
 
         public void HandleCollisions()

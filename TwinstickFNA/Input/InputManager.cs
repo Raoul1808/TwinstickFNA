@@ -21,7 +21,7 @@ namespace TwinstickFNA.Input
             _oldMouse = _mouse;
             _oldGamePad = _gamePad;
             _mouse = Mouse.GetState();
-            _gamePad = GamePad.GetState(PlayerIndex.One);
+            _gamePad = GamePad.GetState(PlayerIndex.One, GamePadDeadZone.Circular);
         }
 
         public static bool GetMouseLeft() => _mouse.LeftButton == ButtonState.Pressed;

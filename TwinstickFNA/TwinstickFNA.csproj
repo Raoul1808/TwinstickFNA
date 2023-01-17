@@ -66,6 +66,7 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="DevScene.cs" />
+        <Compile Include="Extensions.cs" />
         <Compile Include="GameContent.cs" />
         <Compile Include="Input\InputManager.cs" />
         <Compile Include="MainGame.cs" />
