@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
 
 namespace TwinstickFNA
 {
@@ -6,7 +6,8 @@ namespace TwinstickFNA
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            using (Game game = new MainGame())
+                game.Run();
         }
     }
 }
