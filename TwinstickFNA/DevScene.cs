@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -11,6 +12,9 @@ namespace TwinstickFNA
         private Vector2 _position;
         private Vector2 _velocity;
         private Vector2 _aim;
+        private bool _isJumping = false;
+        private bool _canJump = false;
+        private bool _canDoubleJump = false;
 
         private List<Rectangle> _platforms = new List<Rectangle>()
         {
@@ -23,8 +27,9 @@ namespace TwinstickFNA
 
         private const float MaxFallSpeed = 20f;
         private const float GravityConstant = 1.2f;
-        private const float HorizontalSpeed = 7f;
-        private const float JumpForce = -17.5f;
+        private const float HorizontalSpeed = 10f;
+        private const float JumpForce = -15f;
+        private const float RecoilForce = 20f;
 
         private Rectangle _bounds =>
             new Rectangle(
@@ -54,8 +59,34 @@ namespace TwinstickFNA
             _velocity.Y += GravityConstant;
             if (_velocity.Y >= MaxFallSpeed)
                 _velocity.Y = MaxFallSpeed;
-            if (InputManager.GetButtonPress(Buttons.LeftTrigger))
+            if (InputManager.GetButtonPress(Buttons.LeftTrigger) && (_canJump || _canDoubleJump))
+            {
                 _velocity.Y = JumpForce;
+                _isJumping = true;
+                if (!_canJump && _canDoubleJump)
+                {
+                    _canDoubleJump = false;
+                }
+                if (_canJump)
+                {
+                    _canJump = false;
+                }
+            }
+
+            if (InputManager.GetButtonPress(Buttons.RightTrigger))
+            {
+                _velocity += _aim * -1f * RecoilForce;
+            }
+            
+            if (_velocity.Y >= 0f)
+                _isJumping = false;
+
+            if (_isJumping && !InputManager.GetButton(Buttons.LeftTrigger))
+            {
+                _velocity.Y /= 2f;
+                _isJumping = false;
+            }
+
             HandleCollisions();
             _position += _velocity;
         }
@@ -77,7 +108,7 @@ namespace TwinstickFNA
                     _bounds.Bottom > rect.Top &&
                     _bounds.Top < rect.Bottom)
                 {
-                    // Touching left
+                    // Touching left of platform
                     _position.X = rect.Left - TileScale / 2;
                     _velocity.X = 0f;
                 }
@@ -87,7 +118,7 @@ namespace TwinstickFNA
                     _bounds.Bottom > rect.Top &&
                     _bounds.Top < rect.Bottom)
                 {
-                    // Touching right
+                    // Touching right of platform
                     _position.X = rect.Right + TileScale / 2;
                     _velocity.X = 0f;
                 }
@@ -97,9 +128,12 @@ namespace TwinstickFNA
                     _bounds.Right > rect.Left &&
                     _bounds.Left < rect.Right)
                 {
-                    // Touching top
+                    // Touching top of platform
                     _position.Y = rect.Top - TileScale / 2;
                     _velocity.Y = 0f;
+                    _isJumping = false;
+                    _canJump = true;
+                    _canDoubleJump = true;
                 }
                 
                 if (_bounds.Top + _velocity.Y < rect.Bottom &&
@@ -107,9 +141,10 @@ namespace TwinstickFNA
                     _bounds.Right > rect.Left &&
                     _bounds.Left < rect.Right)
                 {
-                    // Touching bottom
+                    // Touching bottom of platform
                     _position.Y = rect.Bottom + TileScale / 2;
                     _velocity.Y = 0f;
+                    _isJumping = false;
                 }
             }
         }
