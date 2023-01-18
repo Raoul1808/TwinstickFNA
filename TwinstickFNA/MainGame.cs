@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using TwinstickFNA.ImGuiNet;
 using TwinstickFNA.Input;
 
 namespace TwinstickFNA
@@ -11,19 +12,25 @@ namespace TwinstickFNA
         private SpriteBatch _spriteBatch;
 
         private DevScene _scene;
+
+        public const int ScreenWidth = 1280;
+        public const int ScreenHeight = 720;
         
         public MainGame()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            _graphics.PreferredBackBufferWidth = 1280;
-            _graphics.PreferredBackBufferHeight = 720;
+            _graphics.PreferredBackBufferWidth = ScreenWidth;
+            _graphics.PreferredBackBufferHeight = ScreenHeight;
             _graphics.ApplyChanges();
         }
 
         protected override void Initialize()
         {
+            ImGuiManager.Initialize(this);
+            ImGuiManager.OnLayout += GameVariables.ImGuiLayout;
+            
             base.Initialize();
         }
 
@@ -50,6 +57,8 @@ namespace TwinstickFNA
             _spriteBatch.Begin();
             _scene.Draw(_spriteBatch);
             _spriteBatch.End();
+
+            ImGuiManager.Layout(gameTime);
             
             base.Draw(gameTime);
         }

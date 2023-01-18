@@ -4,14 +4,13 @@
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{AF2AF550-27E0-4329-A768-9A41D2DDFBCA}</ProjectGuid>
-        <OutputType>Exe</OutputType>
+        <ProjectGuid>{B077A8DB-6542-43CE-9BD0-F0E012AC140B}</ProjectGuid>
+        <OutputType>Library</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>TwinstickFNA</RootNamespace>
-        <AssemblyName>TwinstickFNA</AssemblyName>
+        <RootNamespace>TwinstickFNA.ImGuiNet</RootNamespace>
+        <AssemblyName>TwinstickFNA.ImGuiNet</AssemblyName>
         <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
-        <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -22,6 +21,7 @@
         <DefineConstants>DEBUG;TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,32 +31,7 @@
         <DefineConstants>TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
-      <OutputPath>bin\x64\Debug\</OutputPath>
-      <PlatformTarget>x64</PlatformTarget>
-      <DefineConstants>DEBUG;TRACE</DefineConstants>
-      <DebugType>full</DebugType>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-      <OutputPath>bin\x86\Debug\</OutputPath>
-      <PlatformTarget>x86</PlatformTarget>
-      <DefineConstants>DEBUG;TRACE</DefineConstants>
-      <DebugType>full</DebugType>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
-      <OutputPath>bin\x64\Release\</OutputPath>
-      <PlatformTarget>x64</PlatformTarget>
-      <DefineConstants>TRACE</DefineConstants>
-      <Optimize>true</Optimize>
-      <DebugType>pdbonly</DebugType>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-      <OutputPath>bin\x86\Release\</OutputPath>
-      <PlatformTarget>x86</PlatformTarget>
-      <DefineConstants>TRACE</DefineConstants>
-      <Optimize>true</Optimize>
-      <DebugType>pdbonly</DebugType>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="ImGui.NET, Version=1.89.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -79,14 +54,9 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="DevScene.cs" />
-        <Compile Include="Extensions.cs" />
-        <Compile Include="GameContent.cs" />
-        <Compile Include="GameVariables.cs" />
-        <Compile Include="Input\InputManager.cs" />
-        <Compile Include="MainGame.cs" />
-        <Compile Include="Player.cs" />
-        <Compile Include="Program.cs" />
+        <Compile Include="DrawVertDeclaration.cs" />
+        <Compile Include="ImGuiManager.cs" />
+        <Compile Include="ImGuiRenderer.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>
@@ -94,26 +64,11 @@
         <Project>{35253ce1-c864-4cd3-8249-4d1319748e8f}</Project>
         <Name>FNA</Name>
       </ProjectReference>
-      <ProjectReference Include="..\TwinstickFNA.ImGui\TwinstickFNA.ImGui.csproj">
-        <Project>{b077a8db-6542-43ce-9bd0-f0e012ac140b}</Project>
-        <Name>TwinstickFNA.ImGui</Name>
-      </ProjectReference>
     </ItemGroup>
     <ItemGroup>
       <None Include="packages.config" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-         Other similar extension points exist, see Microsoft.Common.targets.
-    <Target Name="BeforeBuild">
-    </Target>
-    -->
-    <Target Name="AfterBuild">
-        <ItemGroup>
-            <DllFiles Include="$(ProjectDir)$(PlatformName)\*.dll" />
-        </ItemGroup>
-        <Copy SourceFiles="@(DllFiles)" DestinationFolder="$(TargetDir)" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false" />
-    </Target>
     <Import Project="..\packages\ImGui.NET.1.89.2\build\net40\ImGui.NET.targets" Condition="Exists('..\packages\ImGui.NET.1.89.2\build\net40\ImGui.NET.targets')" />
     <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
       <PropertyGroup>
@@ -121,5 +76,12 @@
       </PropertyGroup>
       <Error Condition="!Exists('..\packages\ImGui.NET.1.89.2\build\net40\ImGui.NET.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ImGui.NET.1.89.2\build\net40\ImGui.NET.targets'))" />
     </Target>
+    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+         Other similar extension points exist, see Microsoft.Common.targets.
+    <Target Name="BeforeBuild">
+    </Target>
+    <Target Name="AfterBuild">
+    </Target>
+    -->
 
 </Project>
