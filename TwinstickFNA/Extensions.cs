@@ -24,7 +24,7 @@ namespace TwinstickFNA
                 null,
                 color, //colour of line
                 angle,     //angle of line (calulated above)
-                new Vector2(0, 0), // point in line about which to rotate
+                new Vector2(0, 0.5f), // point in line about which to rotate
                 SpriteEffects.None,
                 0);
         }
