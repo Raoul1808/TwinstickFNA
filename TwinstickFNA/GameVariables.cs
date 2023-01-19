@@ -11,9 +11,9 @@ namespace TwinstickFNA
         private static float _maxFallSpeed = 20f;
         private static float _fallAcceleration = 0.7f;
         private static float _horizontalSpeed = 10f;
-        private static float _horizontalAcceleration = 2f;
-        private static float _jumpForce = 15f;
-        private static float _recoilForce = 15f;
+        private static float _horizontalAcceleration = 1.25f;
+        private static float _jumpForce = 13.5f;
+        private static float _recoilForce = 13.5f;
         private static float _recoilDissipation = 0.5f;
         
         public static float MaxFallSpeed => _maxFallSpeed;
@@ -32,7 +32,7 @@ namespace TwinstickFNA
                 ImGui.DragFloat("Max Fall Speed", ref _maxFallSpeed, 0.01f, 0.1f, TileScale);
                 ImGui.DragFloat("Fall Acceleration", ref _fallAcceleration, 0.01f, 0.1f, TileScale);
                 ImGui.DragFloat("Horizontal Top Speed", ref _horizontalSpeed, 0.01f, 0.1f, TileScale);
-                ImGui.SliderFloat("Horizontal Acceleration", ref _horizontalAcceleration, 0f, _horizontalSpeed);
+                ImGui.DragFloat("Horizontal Acceleration", ref _horizontalAcceleration, 0f, _horizontalSpeed, TileScale);
                 ImGui.DragFloat("Jump Force", ref _jumpForce, 0.01f, 0.1f, TileScale);
                 ImGui.DragFloat("Recoil Force", ref _recoilForce, 0.01f, 0.1f, TileScale);
                 ImGui.DragFloat("Recoil Dissipation", ref _recoilDissipation, 0.01f, 0.1f, TileScale);
