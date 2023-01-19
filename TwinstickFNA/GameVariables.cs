@@ -9,27 +9,39 @@ namespace TwinstickFNA
         public const int AimLineLength = 32;
 
         private static float _maxFallSpeed = 20f;
-        private static float _fallAcceleration = 1.2f;
+        private static float _fallAcceleration = 0.7f;
         private static float _horizontalSpeed = 10f;
+        private static float _horizontalAcceleration = 0.75f;
         private static float _jumpForce = 15f;
-        private static float _recoilForce = 20f;
+        private static float _recoilForce = 8f;
+        private static float _recoilDissipation = 0.5f;
+        private static float _airFriction = 3f;
+        private static float _groundFriction = 5f;
         
         public static float MaxFallSpeed => _maxFallSpeed;
         public static float FallAcceleration => _fallAcceleration;
         public static float HorizontalSpeed => _horizontalSpeed;
+        public static float HorizontalAcceleration => _horizontalAcceleration;
         public static float JumpForce => _jumpForce;
         public static float RecoilForce => _recoilForce;
+        public static Vector2 RecoilDissipation => new Vector2(_recoilDissipation);
+        public static float AirFriction => _airFriction;
+        public static float GroundFriction => _groundFriction;
 
         public static void ImGuiLayout()
         {
             ImGui.Begin("Game Variables");
             if (ImGui.CollapsingHeader("Player Variables"))
             {
-                ImGui.DragFloat("Max Fall Speed", ref _maxFallSpeed, 0.1f, 0.1f, TileScale);
-                ImGui.DragFloat("Fall Acceleration", ref _fallAcceleration, 0.1f, 0.1f, TileScale);
-                ImGui.DragFloat("Horizontal Speed", ref _horizontalSpeed, 0.1f, 0.1f, TileScale);
-                ImGui.DragFloat("Jump Force", ref _jumpForce, 0.1f, 0.1f, TileScale);
-                ImGui.DragFloat("Recoil Force", ref _recoilForce, 0.1f, 0.1f, TileScale);
+                ImGui.DragFloat("Max Fall Speed", ref _maxFallSpeed, 0.01f, 0.1f, TileScale);
+                ImGui.DragFloat("Fall Acceleration", ref _fallAcceleration, 0.01f, 0.1f, TileScale);
+                ImGui.DragFloat("Horizontal Top Speed", ref _horizontalSpeed, 0.01f, 0.1f, TileScale);
+                ImGui.SliderFloat("Horizontal Acceleration", ref _horizontalAcceleration, 0f, _horizontalSpeed);
+                ImGui.DragFloat("Jump Force", ref _jumpForce, 0.01f, 0.1f, TileScale);
+                ImGui.DragFloat("Recoil Force", ref _recoilForce, 0.01f, 0.1f, TileScale);
+                ImGui.DragFloat("Recoil Dissipation", ref _recoilDissipation, 0.01f, 0.1f, TileScale);
+                ImGui.DragFloat("Air Friction", ref _airFriction, 0.01f, 0.1f, TileScale);
+                ImGui.DragFloat("Ground Friction", ref _groundFriction, 0.01f, 0.1f, TileScale);
             }
             ImGui.End();
         }
