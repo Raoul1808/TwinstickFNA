@@ -11,12 +11,10 @@ namespace TwinstickFNA
         private static float _maxFallSpeed = 20f;
         private static float _fallAcceleration = 0.7f;
         private static float _horizontalSpeed = 10f;
-        private static float _horizontalAcceleration = 0.75f;
+        private static float _horizontalAcceleration = 2f;
         private static float _jumpForce = 15f;
-        private static float _recoilForce = 8f;
+        private static float _recoilForce = 15f;
         private static float _recoilDissipation = 0.5f;
-        private static float _airFriction = 3f;
-        private static float _groundFriction = 5f;
         
         public static float MaxFallSpeed => _maxFallSpeed;
         public static float FallAcceleration => _fallAcceleration;
@@ -25,8 +23,6 @@ namespace TwinstickFNA
         public static float JumpForce => _jumpForce;
         public static float RecoilForce => _recoilForce;
         public static Vector2 RecoilDissipation => new Vector2(_recoilDissipation);
-        public static float AirFriction => _airFriction;
-        public static float GroundFriction => _groundFriction;
 
         public static void ImGuiLayout()
         {
@@ -40,8 +36,6 @@ namespace TwinstickFNA
                 ImGui.DragFloat("Jump Force", ref _jumpForce, 0.01f, 0.1f, TileScale);
                 ImGui.DragFloat("Recoil Force", ref _recoilForce, 0.01f, 0.1f, TileScale);
                 ImGui.DragFloat("Recoil Dissipation", ref _recoilDissipation, 0.01f, 0.1f, TileScale);
-                ImGui.DragFloat("Air Friction", ref _airFriction, 0.01f, 0.1f, TileScale);
-                ImGui.DragFloat("Ground Friction", ref _groundFriction, 0.01f, 0.1f, TileScale);
             }
             ImGui.End();
         }
