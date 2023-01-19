@@ -18,7 +18,6 @@ namespace TwinstickFNA
         private bool _isJumping;
         private bool _canJump;
         private bool _canDoubleJump;
-        private bool _justShot;
         private bool _onGround;
 
         private Rectangle Bounds =>
@@ -37,6 +36,7 @@ namespace TwinstickFNA
         
         public void Update()
         {
+            _onGround = false;
             // Horizontal movement
             bool left = InputManager.GetButton(Buttons.LeftThumbstickLeft);
             bool right = InputManager.GetButton(Buttons.LeftThumbstickRight);
@@ -126,7 +126,6 @@ namespace TwinstickFNA
             BoolYesNo("Is Jumping: ", _isJumping);
             BoolYesNo("Can Jump: ", _canJump);
             BoolYesNo("Can Double Jump: ", _canDoubleJump);
-            BoolYesNo("Just Shot: ", _justShot);
             BoolYesNo("On Ground: ", _onGround);
             ImGui.End();
         }
