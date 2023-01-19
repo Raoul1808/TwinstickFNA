@@ -3,7 +3,7 @@
  
 
 ## My small TODO list that I will definitely remember to update accordingly
- - [ ] add shooting
+ - [x] add shooting
  - [ ] add different weapons along with shooting
  - [ ] implement mouse and keyboard controls
  - [ ] move to tilemap system
