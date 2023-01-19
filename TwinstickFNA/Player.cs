@@ -158,6 +158,7 @@ namespace TwinstickFNA
 
         private void ResolveCollisions()
         {
+            // TODO: resolve tilemap collisions
             Vector2 vel = _recoil + _velocity;
             foreach (Rectangle rect in DevScene.Platforms)
             {
